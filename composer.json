@@ -1,0 +1,67 @@
+{
+    "name": "henzeb/laravel-encrypted-data-rotator",
+    "description": "Rotates your encrypted data.",
+    "keywords": [
+        "henzeb",
+        "laravel",
+        "rotate",
+        "key",
+        "security",
+        "keys",
+        "encryption",
+        "rotation",
+        "eloquent"
+    ],
+    "homepage": "https://github.com/henzeb/laravel-encrypted-values-rotator",
+    "license": "AGPL-3.0-only",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Henze Berkheij",
+            "email": "henzeberkheij@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "haydenpierce/class-finder": "^0.5.3",
+        "illuminate/support": "^11.0"
+    },
+    "require-dev": {
+        "calebporzio/sushi": "^2.5",
+        "infection/infection": "^0.29",
+        "orchestra/testbench": "^9.0",
+        "pestphp/pest": "v2.31"
+    },
+    "autoload": {
+        "psr-4": {
+            "Henzeb\\Rotator\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Henzeb\\Rotator\\Tests\\": "tests/",
+            "Database\\Factories\\": "database/factories/"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/pest",
+        "test-coverage-txt": "XDEBUG_MODE=coverage vendor/bin/pest --coverage-text",
+        "test-coverage": "XDEBUG_MODE=coverage vendor/bin/pest --coverage-html coverage",
+        "test-dox": "vendor/bin/pest --testdox"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "infection/extension-installer": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Henzeb\\Rotator\\Providers\\RotatorServiceProvider"
+            ]
+        }
+    }
+}

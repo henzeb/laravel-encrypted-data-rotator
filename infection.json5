@@ -1,0 +1,16 @@
+{
+    "$schema": "vendor/infection/infection/resources/schema.json",
+    "testFramework":"pest",
+    "source": {
+        "directories": [
+            "src",
+        ]
+    },
+    "mutators": {
+        "@default": true,
+        "ProtectedVisibility": false,
+    },
+    "logs": {
+        "html": "infection.html"
+    }
+}
