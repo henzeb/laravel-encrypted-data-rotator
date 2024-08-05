@@ -25,6 +25,7 @@ class UserFactory extends Factory
                 'email' => $this->faker->unique()->safeEmail(),
             ],
             'object' => new EncryptableObject(),
+            'custom' => $this->faker->unique()->safeEmail(),
         ];
     }
 }

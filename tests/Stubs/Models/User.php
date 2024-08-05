@@ -3,6 +3,7 @@
 namespace Henzeb\Rotator\Tests\Stubs\Models;
 
 use Database\Factories\UserFactory;
+use Henzeb\Rotator\Tests\Stubs\MySecuredAttribute;
 use Illuminate\Database\Eloquent\Casts\AsEncryptedArrayObject;
 use Illuminate\Database\Eloquent\Casts\AsEncryptedCollection;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -20,6 +21,7 @@ class User extends Model
         'array' => AsEncryptedArrayObject::class,
         'collection' => AsEncryptedCollection::class,
         'object' => 'encrypted:object',
+        'custom' => MySecuredAttribute::class,
     ];
     protected $schema = [
         'name' => 'string',
@@ -28,6 +30,7 @@ class User extends Model
         'array' => 'string',
         'collection' => 'string',
         'object' => 'string',
+        'custom' => 'string',
     ];
 
     protected $rows = [];

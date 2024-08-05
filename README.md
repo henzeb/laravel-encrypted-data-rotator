@@ -74,6 +74,26 @@ attributes are automatically detected.
 Note: just like the key rotation command, `key:rotate-data` accepts `env` to
 specify an environment and `force` to start rotation without confirmation.
 
+#### rotating custom attribute casts
+
+It is possible to rotate custom casts. Your `CastsAttributes` implementation should
+either have `encrypted` in its class name, or implement the
+`Henzeb\Rotator\Contracts\CastsEncryptedAttributes` interface.
+
+```php
+
+use Henzeb\Rotator\Contracts\CastsEncryptedAttributes;
+use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
+
+
+class YourCustomAttribute implements CastsAttributes, CastsEncryptedAttributes
+{
+    // your implementation
+}
+```
+
+Note: This also works with `CastsInboundAttributes` implementations
+
 #### rotating custom encrypted data
 
 To rotate encrypted data that is not accessible by models, you can implement the

@@ -4,6 +4,7 @@ namespace Henzeb\Rotator\Commands;
 
 use HaydenPierce\ClassFinder\ClassFinder;
 use Henzeb\Rotator\Concerns\ChecksEnvironment;
+use Henzeb\Rotator\Contracts\CastsEncryptedAttributes;
 use Henzeb\Rotator\Contracts\RotatesEncryptedData;
 use Henzeb\Rotator\Jobs\RotateEncryptedValues;
 use Henzeb\Rotator\Jobs\RotateModelsWithEncryptedAttributes;
@@ -82,20 +83,25 @@ class KeyRotateDataCommand extends Command
 
     private function getEncryptedAttributesWhenModel(string $class): bool|array
     {
-        if (!is_a($class, Model::class, true)) {
+        if (!is_subclass_of($class, Model::class)) {
             return false;
         }
 
-        $model = new $class;
-
         return collect(
-            $model->getCasts()
+            (new $class)->getCasts()
         )->filter(
             fn(string $castType) => str_contains(
-                strtolower($castType),
-                'encrypted'
-            )
-        )->keys()->toArray();
+                    strtolower($castType),
+                    'encrypted'
+                ) || (
+                    class_exists($castType)
+                    && is_subclass_of(
+                        $castType,
+                        CastsEncryptedAttributes::class
+                    )
+                )
+        )->keys()
+            ->toArray();
     }
 
     /**

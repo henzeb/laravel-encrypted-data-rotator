@@ -82,6 +82,7 @@ it('should dispatch jobs for models', function () {
                 'array',
                 'collection',
                 'object',
+                'custom'
             ]);
             return $proxy->getModel($job) === User::class;
         }
