@@ -91,7 +91,7 @@ class KeyRotateDataCommand extends Command
             (new $class)->getCasts()
         )->filter(
             fn(string $castType) => str_contains(
-                    strtolower($castType),
+                    strtolower(class_basename($castType)),
                     'encrypted'
                 ) || (
                     class_exists($castType)
