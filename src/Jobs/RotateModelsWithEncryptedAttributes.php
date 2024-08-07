@@ -10,11 +10,15 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Queue;
 
 class RotateModelsWithEncryptedAttributes implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, Requeueable;
+    use Dispatchable,
+        InteractsWithQueue,
+        Queueable,
+        Requeueable;
 
     private int $processedModels = 0;
 

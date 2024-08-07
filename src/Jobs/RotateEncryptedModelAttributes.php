@@ -8,10 +8,13 @@ use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\SerializesModels;
 
 class RotateEncryptedModelAttributes implements ShouldQueue, ShouldBeUnique
 {
-    use Dispatchable, Queueable;
+    use Dispatchable,
+        SerializesModels,
+        Queueable;
 
     /**
      * @param class-string<Model> $model
