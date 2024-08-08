@@ -74,7 +74,26 @@ attributes are automatically detected.
 Note: just like the key rotation command, `key:rotate-data` accepts `env` to
 specify an environment and `force` to start rotation without confirmation.
 
-#### rotating custom attribute casts
+#### Rotating mutators
+
+If you have mutators in your model that handles encrypted data, you
+want them to be rotated as well. For those situations you can use the
+Attribute `EncryptsData`. The `key:rotate-data` command will then
+detect the mutator and rotate its data.
+
+````php
+use Henzeb\Rotator\Attributes\EncryptsData;
+
+#[EncryptsData]
+public function myAttribute(): Attribute
+{
+    return Attribute::set(
+        fn($value) => encrypt($value)
+    )->get(fn($value) => decrypt($value));
+}
+````
+
+#### Rotating custom attribute casts
 
 It is possible to rotate custom casts. Your `CastsAttributes` implementation should
 either have `encrypted` in its class name, or implement the

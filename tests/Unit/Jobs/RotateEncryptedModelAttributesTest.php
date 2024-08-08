@@ -45,7 +45,8 @@ it('rotates attributes', function (array $attributes) {
         'json',
         'collection',
         'object',
-        'custom'
+        'custom',
+        'my_attribute'
     ];
 
     foreach ($testableAttributes as $testableAttribute) {
@@ -63,13 +64,15 @@ it('rotates attributes', function (array $attributes) {
     ['attributes' => ['collection']],
     ['attributes' => ['object']],
     ['attributes' => ['custom']],
+    ['attributes' => ['my_attribute']],
     'all' => ['attributes' => [
         'string',
         'array',
         'json',
         'collection',
         'object',
-        'custom'
+        'custom',
+        'my_attribute'
     ]],
 ]);
 

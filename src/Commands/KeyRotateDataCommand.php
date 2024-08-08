@@ -3,6 +3,7 @@
 namespace Henzeb\Rotator\Commands;
 
 use HaydenPierce\ClassFinder\ClassFinder;
+use Henzeb\Rotator\Attributes\EncryptsData;
 use Henzeb\Rotator\Concerns\ChecksEnvironment;
 use Henzeb\Rotator\Contracts\CastsEncryptedAttributes;
 use Henzeb\Rotator\Contracts\RotatesEncryptedData;
@@ -10,8 +11,11 @@ use Henzeb\Rotator\Jobs\RotateEncryptedValues;
 use Henzeb\Rotator\Jobs\RotateModelsWithEncryptedAttributes;
 use Illuminate\Console\Command;
 use Illuminate\Console\ConfirmableTrait;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
+use ReflectionClass;
 
 class KeyRotateDataCommand extends Command
 {
@@ -101,7 +105,26 @@ class KeyRotateDataCommand extends Command
                     )
                 )
         )->keys()
+            ->merge($this->getEncryptedAttributeMethods($class))
+            ->unique()
             ->toArray();
+    }
+
+    protected function getEncryptedAttributeMethods(string $class): array
+    {
+        $class = new ReflectionClass($class);
+
+        $result = [];
+
+        foreach ($class->getMethods() as $method) {
+            if (
+                !empty($method->getAttributes(EncryptsData::class))
+            ) {
+                $result[] = Str::snake($method->getName());
+            }
+        }
+
+        return $result;
     }
 
     /**
